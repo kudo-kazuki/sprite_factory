@@ -1,0 +1,35 @@
+{
+  "name": "sprite factory",
+  "version": "1.0.0",
+  "description": "sprite",
+  "main": "views/main.html",
+  "window": {
+    "min_width": 900,
+    "min_height": 600,
+    "icon": "assets/icon.png"
+  },
+  "maintainers": [
+    {
+      "name": "kudo",
+      "web": "https://www.sumzap.co.jp/"
+    }
+  ],
+  "bugs": "",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": ""
+    }
+  ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "",
+      "path": ""
+    }
+  ],
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.5",
+    "font-awesome": "^4.7.0"
+  }
+}

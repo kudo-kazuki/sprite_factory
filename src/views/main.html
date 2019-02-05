@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>sprite工場</title>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+<main>
+<div id="app">
+<h1><i class="fas fa-industry"></i> sprite工場へようこそ</h1>
+
+<h2><label for="inout_directory_path">↓に画像のディレクトリのパスを入れてね<i class="far fa-star"></i></label></h2>
+<p><input v-model="selectDirPath" id="inout_directory_path" type="text"></p>
+<p><input @change="onFileChange" v-if="inputFileView" id="select_directory" type="file" webkitdirectory></p>
+
+<div class="btnNarabi2" v-if="imageList.length">
+<p class="btn color1"><a v-on:click.stop.prevent="createSprite" href=""><i class="far fa-grin-squint"></i><i class="fas fa-magic"></i> 実行する</a></p>
+<p class="btn color2"><a v-on:click.stop.prevent="canselSprite" href=""><i class="far fa-dizzy"></i><i class="fas fa-times-circle"></i> キャンセル</a></p>
+</div>
+
+<!-- <img :src="image"> -->
+<ul class="imageList" v-if="imageList.length">
+	<li v-for="(image, index) in imageList">
+		<img :src="image.src" alt="">
+		<span>{{image.name}}</span>
+	</li>
+</ul>
+
+<div class="loadingWrap" v-if="loadingFlg">
+	<p class="message">{{ loadingMessage }}</p>
+	<div class="loadingAnime"></div>
+</div>
+
+
+</div>
+</main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="../app/sprite.js"></script>
+</html>

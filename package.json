@@ -1,0 +1,32 @@
+{
+  "name": "nw.js-examples",
+  "version": "1.0.0",
+  "description": "nw.js features demonstrated in a simple project",
+  "license": "MIT",
+  "author": {
+    "name": "Julian Motz",
+    "url": "https://github.com/julmot"
+  },
+  "repository": {
+    "url": "https://github.com/julmot/nw.js-examples.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/julmot/nw.js-examples/issues"
+  },
+  "scripts": {
+    "dev": "nw src/",
+    "prod": "nwbuild --platforms win32,win64,osx64,linux32,linux64 --buildDir dist/ src/",
+    "gulp": "gulp"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-sass": "^4.0.2",
+    "nw": "^0.18.8",
+    "nw-builder": "^3.1.2"
+  },
+  "dependencies": {
+    "jimp": "^0.6.0"
+  }
+}
