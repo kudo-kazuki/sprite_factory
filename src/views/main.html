@@ -23,8 +23,17 @@
 
 
 <div class="spriteAnimationWrap" v-if="spriteInfo.createFlg">
-	<div class="spriteAnimation">
+	<div class="spriteAnimation" :style="{width: spriteInfo.frameWidth + 'px'}">
 		<img :src="spriteInfo.path" alt="">
+	</div>
+
+	<div class="spriteInfo">
+		<ul>
+			<li>1フレームの幅：{{spriteInfo.frameWidth}}px</li>
+			<li>高さ：{{spriteInfo.height}}px</li>
+			<li>合計幅：{{spriteInfo.width}}px</li>
+			<li>合計枚数：{{spriteInfo.flameNum}}枚</li>
+		</ul>
 	</div>
 </div>
 

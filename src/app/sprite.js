@@ -165,7 +165,7 @@ var app = new Vue({
                     vm.spriteInfo.width      = totalWidth;
                     vm.spriteInfo.height     = maxHeight;
                     vm.spriteInfo.frameWidth = data[1].bitmap.width;
-                    vm.spriteInfo.flameNum   = jimps.length - 1;
+                    vm.spriteInfo.flameNum   = data.length - 1;
                     vm.spriteInfo.path       = vm.selectDirPath + 'sprite.png';
                     vm.spriteInfo.createFlg  = true;
                 });
