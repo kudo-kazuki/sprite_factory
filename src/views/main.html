@@ -21,7 +21,14 @@
 <p class="btn color2"><a v-on:click.stop.prevent="canselSprite" href=""><i class="far fa-dizzy"></i><i class="fas fa-times-circle"></i> キャンセル</a></p>
 </div>
 
-<!-- <img :src="image"> -->
+
+<div class="spriteAnimationWrap" v-if="spriteInfo.createFlg">
+	<div class="spriteAnimation">
+		<img :src="spriteInfo.path" alt="">
+	</div>
+</div>
+
+
 <ul class="imageList" v-if="imageList.length">
 	<li v-for="(image, index) in imageList">
 		<img :src="image.src" alt="">

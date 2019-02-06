@@ -10,7 +10,15 @@ var app = new Vue({
             selectDirPath: '',
             inputFileView: true,
             loadingMessage: '処理中です',
-            loadingFlg: false
+            loadingFlg: false,
+            spriteInfo: {
+                width: 0,
+                height: 0,
+                frameWidth: 0,
+                flameNum: 0,
+                path: '',
+                createFlg: false
+            }
         }
 	},
 
@@ -41,6 +49,8 @@ var app = new Vue({
             var vm = this;
             var imageInfoResult = {};
             var imageReaderPromise = [];
+
+            this.resetSpriteInfo();
 
             for(let i = 0; i < files.length; i++){
                 //1つ1つ処理のpromise化しまっせ
@@ -83,9 +93,19 @@ var app = new Vue({
             this.imageList = '';
             this.selectDirPath = '';
             this.inputFileView = false;
+            this.resetSpriteInfo();
             this.$nextTick(function(){
                 this.inputFileView = true;
             });
+        },
+
+        resetSpriteInfo(){
+            this.spriteInfo.width      = 0;
+            this.spriteInfo.height     = 0;
+            this.spriteInfo.frameWidth = 0;
+            this.spriteInfo.flameNum   = 0;
+            this.spriteInfo.path       = '';
+            this.spriteInfo.createFlg  = false;
         },
 
         /*ここから実際のsprite生成メソッドだよ*/
@@ -99,6 +119,8 @@ var app = new Vue({
                 alert('画像が1つしかありません');
                 return false;
             }
+
+            this.resetSpriteInfo();
 
             this.setLoadingAnime(true, '処理中です');
 
@@ -140,6 +162,12 @@ var app = new Vue({
 
                 data[jimps.length - 1].write(vm.selectDirPath + 'sprite.png', function() {
                     console.log('作成');
+                    vm.spriteInfo.width      = totalWidth;
+                    vm.spriteInfo.height     = maxHeight;
+                    vm.spriteInfo.frameWidth = data[1].bitmap.width;
+                    vm.spriteInfo.flameNum   = jimps.length - 1;
+                    vm.spriteInfo.path       = vm.selectDirPath + 'sprite.png';
+                    vm.spriteInfo.createFlg  = true;
                 });
 
                 //最初に生成したtmpはゴミなので消します。
@@ -147,8 +175,14 @@ var app = new Vue({
                     console.log(err);
                 });
 
+
                 vm.setLoadingAnime(false, '');
+                alert('完了しました！');
             });
+        },
+
+        createdSpriteShow: function(){
+
         }
     },
 
