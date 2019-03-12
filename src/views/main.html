@@ -35,7 +35,127 @@
 			<li>合計枚数：{{spriteInfo.flameNum}}枚</li>
 		</ul>
 	</div>
+
+
 </div>
+
+
+
+	<div class="animationInfo">
+		<ul>
+			<li>
+				<label>
+					<dl>
+						<dt>animation-duration：</dt>
+						<dd><input type="number" min="0" value="">s</dd>
+					</dl>
+				</label>
+			</li>
+			<li>
+				<dl>
+					<dt>animation-timing-function：</dt>
+					<dd>
+						<ul>
+							<li>
+								<label><input type="radio" name="timing-function_select" checked>デフォルト</label>
+							</li>
+							<li>
+								<label><input type="radio" name="timing-function_select">steps</label>
+							</li>
+							<li>
+								<label><input type="radio" name="timing-function_select">cubic-bezier</label>
+							</li>
+						</ul>
+						<div class="input_timing_function default">
+							<select name="" id="">
+								<option value="linear">linear</option>
+								<option value="ease">ease</option>
+								<option value="ease-in">ease-in</option>
+								<option value="ease-out">ease-out</option>
+								<option value="ease-in-out">ease-in-out</option>
+							</select>
+						</div>
+						<div class="input_timing_function step">
+							<label>step：<input type="number" min="0" value=""></label>
+						</div>
+						<div class="input_timing_function cubic">
+							cubic-bezier：(<input type="number">, <input type="number">, <input type="number">)
+						</div>
+					</dd>
+				</dl>
+			</li>
+			<li>
+				<label>
+					<dl>
+						<dt>animation-delay：</dt>
+						<dd><input type="number" min="0" value="">s</dd>
+					</dl>
+				</label>
+			</li>
+			<li>
+				<label>
+					<dl>
+						<dt>animation-iteration-count：</dt>
+						<dd>
+							<select name="" id="">
+								<option value="infinite">infinite</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+							</select>
+						</dd>
+					</dl>
+				</label>
+			</li>
+			<li>
+				<label>
+					<dl>
+						<dt>animation-direction：</dt>
+						<dd>
+							<select name="" id="">
+								<option value="normal">normal</option>
+								<option value="reverse">reverse</option>
+								<option value="alternate">alternate</option>
+								<option value="alternate-reverse">alternate-reverse</option>
+							</select>
+						</dd>
+					</dl>
+				</label>
+			</li>
+			<li>
+				<label>
+					<dl>
+						<dt>animation-fill-mode：</dt>
+						<dd>
+							<select name="" id="">
+								<option value="none">none</option>
+								<option value="forwards">forwards</option>
+								<option value="backwards">backwards</option>
+								<option value="both">both</option>
+							</select>
+						</dd>
+					</dl>
+				</label>
+			</li>
+		</ul>
+	</div><!-- animationInfo -->
+
+
+
+
+
+
+
+
+
+
+
 
 
 <ul class="imageList" v-if="imageList.length">

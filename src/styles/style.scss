@@ -153,6 +153,83 @@ input[type="text"]{
 
 
 
+
+.spriteAnimationWrap{
+	margin: 10px auto 30px;
+
+	.spriteAnimation{
+		overflow: hidden;
+		margin: 0 auto;
+	}
+}
+
+
+
+
+.animationInfo{
+	label{
+		display: block;
+	}
+
+	>ul{
+		>li{
+			dl{
+				display: table;
+				width: 100%;
+
+				dt,dd{
+					display: table-cell;
+					vertical-align: top;
+				}
+
+				dt{
+					width: 180px;
+				}
+
+				dd{
+
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .loadingWrap{
 	position: fixed;
 	top: 0;
