@@ -4,8 +4,8 @@
   "description": "sprite",
   "main": "views/main.html",
   "window": {
-    "min_width": 900,
-    "min_height": 600,
+    "min_width": 980,
+    "min_height": 720,
     "icon": "assets/icon.png"
   },
   "maintainers": [

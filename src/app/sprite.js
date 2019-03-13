@@ -18,6 +18,23 @@ var app = new Vue({
                 flameNum: 0,
                 path: '',
                 createFlg: false
+            },
+            animationInfo: {
+                duration: 0,
+                delay: 0,
+                iteration_count: 'infinite',
+                direction: 'normal',
+                fill_mode: 'none',
+                timing_function: {
+                    kind: 'default',
+                    step: 0,
+                    cubic: [0,0,0,0],
+                    result: 'linear'
+                },
+                delay: 0,
+                iteration_count: 'infinite',
+                direction: 'normal',
+                fill_mode: 'none'
             }
         }
 	},
@@ -183,6 +200,19 @@ var app = new Vue({
 
         createdSpriteShow: function(){
 
+        },
+
+        setTimingFunctionStep(){
+            this.animationInfo.timing_function.result = 'steps(' + this.animationInfo.timing_function.step + ')';
+        },
+
+        setTimingFunctionCubic(){
+            this.animationInfo.timing_function.result = 'cubic-bezier(' + 
+                this.animationInfo.timing_function.cubic[0] + ', ' +
+                this.animationInfo.timing_function.cubic[1] + ', ' +
+                this.animationInfo.timing_function.cubic[2] + ', ' +
+                this.animationInfo.timing_function.cubic[3] +
+            ')';
         }
     },
 
@@ -190,5 +220,7 @@ var app = new Vue({
         this.$nextTick(function() {
             //console.log(this.imageList);
         });
-    },
+    }
 });
+
+

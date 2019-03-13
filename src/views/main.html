@@ -21,130 +21,153 @@
 <p class="btn color2"><a v-on:click.stop.prevent="canselSprite" href=""><i class="far fa-dizzy"></i><i class="fas fa-times-circle"></i> キャンセル</a></p>
 </div>
 
-
-<div class="spriteAnimationWrap" v-if="spriteInfo.createFlg">
+ <!-- v-if="spriteInfo.createFlg" -->
+<div class="spriteAnimationWrap">
 	<div class="spriteAnimation" :style="{width: spriteInfo.frameWidth + 'px'}">
 		<img :src="spriteInfo.path" alt="">
 	</div>
 
-	<div class="spriteInfo">
-		<ul>
-			<li>1フレームの幅：{{spriteInfo.frameWidth}}px</li>
-			<li>高さ：{{spriteInfo.height}}px</li>
-			<li>合計幅：{{spriteInfo.width}}px</li>
-			<li>合計枚数：{{spriteInfo.flameNum}}枚</li>
-		</ul>
-	</div>
+	<div class="infoWrap">
+		<div class="spriteInfo">
+			<ul>
+				<li>1フレームの幅：{{spriteInfo.frameWidth}}px</li>
+				<li>高さ：{{spriteInfo.height}}px</li>
+				<li>合計幅：{{spriteInfo.width}}px</li>
+				<li>合計枚数：{{spriteInfo.flameNum}}枚</li>
+			</ul>
+		</div>
 
+		<div class="animationInfo">
+			<ul>
+				<li>
+					<label>
+						<dl>
+							<dt>animation-duration：</dt>
+							<dd><input type="number" min="0" value="" v-model="animationInfo.duration"> s</dd>
+						</dl>
+					</label>
+				</li>
+				<li>
+					<dl>
+						<dt>animation-timing-function：</dt>
+						<dd>
+							<ul class="radio_list">
+								<li>
+									<label>
+										<input type="radio" v-model="animationInfo.timing_function.kind" value="default">デフォルト
+									</label>
+								</li>
+								<li>
+									<label>
+										<input type="radio" v-model="animationInfo.timing_function.kind" value="step">steps
+									</label>
+								</li>
+								<li>
+									<label>
+										<input type="radio" v-model="animationInfo.timing_function.kind" value="cubic">cubic-bezier
+									</label>
+								</li>
+							</ul>
 
+							<div class="input_timing_function default" v-if="animationInfo.timing_function.kind === 'default'">
+								<select v-model="animationInfo.timing_function.result">
+									<option value="linear">linear</option>
+									<option value="ease">ease</option>
+									<option value="ease-in">ease-in</option>
+									<option value="ease-out">ease-out</option>
+									<option value="ease-in-out">ease-in-out</option>
+								</select>
+							</div>
+
+							<div class="input_timing_function step" v-if="animationInfo.timing_function.kind === 'step'">
+								<label>step：<input type="number" min="0" v-model="animationInfo.timing_function.step" @change="setTimingFunctionStep"></label>
+							</div>
+
+							<div class="input_timing_function cubic" v-if="animationInfo.timing_function.kind === 'cubic'">
+								cubic-bezier：(
+									<input type="number" v-model="animationInfo.timing_function.cubic[0]" @change="setTimingFunctionCubic">, 
+									<input type="number" v-model="animationInfo.timing_function.cubic[1]" @change="setTimingFunctionCubic">, 
+									<input type="number" v-model="animationInfo.timing_function.cubic[2]" @change="setTimingFunctionCubic">,
+									<input type="number" v-model="animationInfo.timing_function.cubic[3]" @change="setTimingFunctionCubic">
+								)
+							</div>
+						</dd>
+					</dl>
+					{{ animationInfo.timing_function.result }}
+				</li>
+				<li>
+					<label>
+						<dl>
+							<dt>animation-delay：</dt>
+							<dd><input type="number" min="0" value="" v-model="animationInfo.delay"> s</dd>
+						</dl>
+					</label>
+					{{ animationInfo.delay }}
+				</li>
+				<li>
+					<label>
+						<dl>
+							<dt>animation-iteration-count：</dt>
+							<dd>
+								<select v-model="animationInfo.iteration_count">
+									<option value="infinite">infinite</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+								</select>
+							</dd>
+						</dl>
+					</label>
+					{{ animationInfo.iteration_count }}
+				</li>
+				<li>
+					<label>
+						<dl>
+							<dt>animation-direction：</dt>
+							<dd>
+								<select v-model="animationInfo.direction">
+									<option value="normal">normal</option>
+									<option value="reverse">reverse</option>
+									<option value="alternate">alternate</option>
+									<option value="alternate-reverse">alternate-reverse</option>
+								</select>
+							</dd>
+						</dl>
+					</label>
+					{{ animationInfo.direction }}
+				</li>
+				<li>
+					<label>
+						<dl>
+							<dt>animation-fill-mode：</dt>
+							<dd>
+								<select v-model="animationInfo.fill_mode">
+									<option value="none">none</option>
+									<option value="forwards">forwards</option>
+									<option value="backwards">backwards</option>
+									<option value="both">both</option>
+								</select>
+							</dd>
+						</dl>
+					</label>
+					{{ animationInfo.fill_mode }}
+				</li>
+			</ul>
+
+			<p class="btn color1"><a href=""><i class="fas fa-thumbs-up"></i> アニメーションさせる</a></p>
+		</div><!-- animationInfo -->
+	</div><!-- infoWrap -->
 </div>
 
 
 
-	<div class="animationInfo">
-		<ul>
-			<li>
-				<label>
-					<dl>
-						<dt>animation-duration：</dt>
-						<dd><input type="number" min="0" value="">s</dd>
-					</dl>
-				</label>
-			</li>
-			<li>
-				<dl>
-					<dt>animation-timing-function：</dt>
-					<dd>
-						<ul>
-							<li>
-								<label><input type="radio" name="timing-function_select" checked>デフォルト</label>
-							</li>
-							<li>
-								<label><input type="radio" name="timing-function_select">steps</label>
-							</li>
-							<li>
-								<label><input type="radio" name="timing-function_select">cubic-bezier</label>
-							</li>
-						</ul>
-						<div class="input_timing_function default">
-							<select name="" id="">
-								<option value="linear">linear</option>
-								<option value="ease">ease</option>
-								<option value="ease-in">ease-in</option>
-								<option value="ease-out">ease-out</option>
-								<option value="ease-in-out">ease-in-out</option>
-							</select>
-						</div>
-						<div class="input_timing_function step">
-							<label>step：<input type="number" min="0" value=""></label>
-						</div>
-						<div class="input_timing_function cubic">
-							cubic-bezier：(<input type="number">, <input type="number">, <input type="number">)
-						</div>
-					</dd>
-				</dl>
-			</li>
-			<li>
-				<label>
-					<dl>
-						<dt>animation-delay：</dt>
-						<dd><input type="number" min="0" value="">s</dd>
-					</dl>
-				</label>
-			</li>
-			<li>
-				<label>
-					<dl>
-						<dt>animation-iteration-count：</dt>
-						<dd>
-							<select name="" id="">
-								<option value="infinite">infinite</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-							</select>
-						</dd>
-					</dl>
-				</label>
-			</li>
-			<li>
-				<label>
-					<dl>
-						<dt>animation-direction：</dt>
-						<dd>
-							<select name="" id="">
-								<option value="normal">normal</option>
-								<option value="reverse">reverse</option>
-								<option value="alternate">alternate</option>
-								<option value="alternate-reverse">alternate-reverse</option>
-							</select>
-						</dd>
-					</dl>
-				</label>
-			</li>
-			<li>
-				<label>
-					<dl>
-						<dt>animation-fill-mode：</dt>
-						<dd>
-							<select name="" id="">
-								<option value="none">none</option>
-								<option value="forwards">forwards</option>
-								<option value="backwards">backwards</option>
-								<option value="both">both</option>
-							</select>
-						</dd>
-					</dl>
-				</label>
-			</li>
-		</ul>
-	</div><!-- animationInfo -->
+
 
 
 
@@ -175,5 +198,6 @@
 </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
 <script src="../app/sprite.js"></script>
 </html>
