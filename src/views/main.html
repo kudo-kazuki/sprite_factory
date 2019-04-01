@@ -21,10 +21,10 @@
 <p class="btn color2"><a v-on:click.stop.prevent="canselSprite" href=""><i class="far fa-dizzy"></i><i class="fas fa-times-circle"></i> キャンセル</a></p>
 </div>
 
- <!-- v-if="spriteInfo.createFlg" -->
-<div class="spriteAnimationWrap">
+ <!-- -->
+<div class="spriteAnimationWrap" v-if="spriteInfo.createFlg">
 	<div class="spriteAnimation" :style="{width: spriteInfo.frameWidth + 'px'}">
-		<img :src="spriteInfo.path" alt="">
+		<img id="spriteAnimationImg" :src="spriteInfo.path" alt="">
 	</div>
 
 	<div class="infoWrap">
@@ -43,7 +43,7 @@
 					<label>
 						<dl>
 							<dt>animation-duration：</dt>
-							<dd><input type="number" min="0" value="" v-model="animationInfo.duration"> s</dd>
+							<dd><input type="number" min="0" value="" v-model="animationInfo.duration" @change="setAnimationInfoOutPutCss"> s</dd>
 						</dl>
 					</label>
 				</li>
@@ -54,12 +54,12 @@
 							<ul class="radio_list">
 								<li>
 									<label>
-										<input type="radio" v-model="animationInfo.timing_function.kind" value="default">デフォルト
+										<input type="radio" v-model="animationInfo.timing_function.kind" value="step" checked>steps
 									</label>
 								</li>
 								<li>
 									<label>
-										<input type="radio" v-model="animationInfo.timing_function.kind" value="step">steps
+										<input type="radio" v-model="animationInfo.timing_function.kind" value="default">デフォルト
 									</label>
 								</li>
 								<li>
@@ -69,18 +69,18 @@
 								</li>
 							</ul>
 
+							<div class="input_timing_function step" v-if="animationInfo.timing_function.kind === 'step'">
+								<label>step：<input type="number" min="0" v-model="animationInfo.timing_function.step" @change="setTimingFunctionStep"></label>
+							</div>
+
 							<div class="input_timing_function default" v-if="animationInfo.timing_function.kind === 'default'">
-								<select v-model="animationInfo.timing_function.result">
+								<select v-model="animationInfo.timing_function.result" @change="setAnimationInfoOutPutCss">
 									<option value="linear">linear</option>
 									<option value="ease">ease</option>
 									<option value="ease-in">ease-in</option>
 									<option value="ease-out">ease-out</option>
 									<option value="ease-in-out">ease-in-out</option>
 								</select>
-							</div>
-
-							<div class="input_timing_function step" v-if="animationInfo.timing_function.kind === 'step'">
-								<label>step：<input type="number" min="0" v-model="animationInfo.timing_function.step" @change="setTimingFunctionStep"></label>
 							</div>
 
 							<div class="input_timing_function cubic" v-if="animationInfo.timing_function.kind === 'cubic'">
@@ -93,23 +93,21 @@
 							</div>
 						</dd>
 					</dl>
-					{{ animationInfo.timing_function.result }}
 				</li>
 				<li>
 					<label>
 						<dl>
 							<dt>animation-delay：</dt>
-							<dd><input type="number" min="0" value="" v-model="animationInfo.delay"> s</dd>
+							<dd><input type="number" min="0" value="" v-model="animationInfo.delay" @change="setAnimationInfoOutPutCss"> s</dd>
 						</dl>
 					</label>
-					{{ animationInfo.delay }}
 				</li>
 				<li>
 					<label>
 						<dl>
 							<dt>animation-iteration-count：</dt>
 							<dd>
-								<select v-model="animationInfo.iteration_count">
+								<select v-model="animationInfo.iteration_count" @change="setAnimationInfoOutPutCss">
 									<option value="infinite">infinite</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -124,14 +122,13 @@
 							</dd>
 						</dl>
 					</label>
-					{{ animationInfo.iteration_count }}
 				</li>
 				<li>
 					<label>
 						<dl>
 							<dt>animation-direction：</dt>
 							<dd>
-								<select v-model="animationInfo.direction">
+								<select v-model="animationInfo.direction" @change="setAnimationInfoOutPutCss">
 									<option value="normal">normal</option>
 									<option value="reverse">reverse</option>
 									<option value="alternate">alternate</option>
@@ -140,14 +137,13 @@
 							</dd>
 						</dl>
 					</label>
-					{{ animationInfo.direction }}
 				</li>
 				<li>
 					<label>
 						<dl>
 							<dt>animation-fill-mode：</dt>
 							<dd>
-								<select v-model="animationInfo.fill_mode">
+								<select v-model="animationInfo.fill_mode" @change="setAnimationInfoOutPutCss">
 									<option value="none">none</option>
 									<option value="forwards">forwards</option>
 									<option value="backwards">backwards</option>
@@ -156,20 +152,18 @@
 							</dd>
 						</dl>
 					</label>
-					{{ animationInfo.fill_mode }}
 				</li>
 			</ul>
 
 			<p class="btn color1"><a href=""><i class="fas fa-thumbs-up"></i> アニメーションさせる</a></p>
+
+			<div v-html="animationInfo.outPutCssWithStyle"></div>
+			<div v-html="animationInfo.outPutKeyframes"></div>
+
+			<textarea id="outPutCssTextarea" v-model="animationInfo.outPutCss" readonly></textarea>
 		</div><!-- animationInfo -->
 	</div><!-- infoWrap -->
 </div>
-
-
-
-
-
-
 
 
 

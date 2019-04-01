@@ -26,15 +26,14 @@ var app = new Vue({
                 direction: 'normal',
                 fill_mode: 'none',
                 timing_function: {
-                    kind: 'default',
+                    kind: 'step',
                     step: 0,
                     cubic: [0,0,0,0],
-                    result: 'linear'
+                    result: 'steps(0)'
                 },
-                delay: 0,
-                iteration_count: 'infinite',
-                direction: 'normal',
-                fill_mode: 'none'
+                outPutCss: '',
+                outPutCssWithStyle: '',
+                outPutKeyframes: ''
             }
         }
 	},
@@ -123,6 +122,7 @@ var app = new Vue({
             this.spriteInfo.flameNum   = 0;
             this.spriteInfo.path       = '';
             this.spriteInfo.createFlg  = false;
+            this.animationInfo.outPutKeyframes = '';
         },
 
         /*ここから実際のsprite生成メソッドだよ*/
@@ -185,6 +185,10 @@ var app = new Vue({
                     vm.spriteInfo.flameNum   = data.length - 1;
                     vm.spriteInfo.path       = vm.selectDirPath + 'sprite.png';
                     vm.spriteInfo.createFlg  = true;
+
+                    vm.animationInfo.outPutKeyframes = '<style>\n@keyframes spriteAnimation{\nto{\ntransform: translate3d(-' + vm.spriteInfo.width + 'px, 0, 0);\n}\n}\n</style>';
+                    vm.animationInfo.timing_function.step = vm.spriteInfo.flameNum;
+                    vm.setTimingFunctionStep();
                 });
 
                 //最初に生成したtmpはゴミなので消します。
@@ -204,6 +208,7 @@ var app = new Vue({
 
         setTimingFunctionStep(){
             this.animationInfo.timing_function.result = 'steps(' + this.animationInfo.timing_function.step + ')';
+            this.setAnimationInfoOutPutCss();
         },
 
         setTimingFunctionCubic(){
@@ -213,12 +218,24 @@ var app = new Vue({
                 this.animationInfo.timing_function.cubic[2] + ', ' +
                 this.animationInfo.timing_function.cubic[3] +
             ')';
+            this.setAnimationInfoOutPutCss();
+        },
+
+        setAnimationInfoOutPutCss(){
+            this.animationInfo.outPutCss = '';
+            this.animationInfo.outPutCss += 'animation-duration: ' + this.animationInfo.duration + 's' + ';\n';
+            this.animationInfo.outPutCss += 'animation-timing-function: ' + this.animationInfo.timing_function.result + ';\n';
+            this.animationInfo.outPutCss += 'animation-delay: ' + this.animationInfo.delay + 's' + ';\n';
+            this.animationInfo.outPutCss += 'animation-iteration-count: ' + this.animationInfo.iteration_count + ';\n';
+            this.animationInfo.outPutCss += 'animation-direction: ' + this.animationInfo.direction + ';\n';
+            this.animationInfo.outPutCss += 'animation-fill-mode: ' + this.animationInfo.fill_mode + ';';
+            this.animationInfo.outPutCssWithStyle = '<style>#spriteAnimationImg{animation-name: spriteAnimation;'+ this.animationInfo.outPutCss +'}</style>'
         }
     },
 
     mounted: function() {
         this.$nextTick(function() {
-            //console.log(this.imageList);
+            this.setAnimationInfoOutPutCss();
         });
     }
 });
